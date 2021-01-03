@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Data";
+}
+
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+
+
+<div class="container" ng-app="my-employee" ng-controller="employee-controller">
+    <br /><br />
+    <div class="row">
+        <label>Search</label>
+        <input type="search" ng-model="search" class="form-control" />
+    </div>
+
+    <table class="table table-responsive table-striped table-hover">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in Employed | filter:search">
+
+                <td>{{x.emp_id}}</td>
+                <td>{{x.emp_name}}</td>
+                <td>{{x.emp_sal | currency}}</td>
+                <td>{{x.dep_name}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="~/AngularJSApp/Module.js"></script>
+    <script src="~/AngularJSApp/Services.js"></script>
+    <script src="~/AngularJSApp/Controller.js"></script>
+
+</div>
+

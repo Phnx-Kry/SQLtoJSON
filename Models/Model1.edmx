@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="angularModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="depart">
+          <Key>
+            <PropertyRef Name="dep_id" />
+          </Key>
+          <Property Name="dep_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dep_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tble_employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="emp_sal" Type="int" />
+          <Property Name="emp_dept_fk" Type="int" />
+        </EntityType>
+        <Association Name="FK__tble_empl__emp_d__1273C1CD">
+          <End Role="depart" Type="Self.depart" Multiplicity="0..1" />
+          <End Role="tble_employee" Type="Self.tble_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="depart">
+              <PropertyRef Name="dep_id" />
+            </Principal>
+            <Dependent Role="tble_employee">
+              <PropertyRef Name="emp_dept_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="angularModelStoreContainer">
+          <EntitySet Name="depart" EntityType="Self.depart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tble_employee" EntityType="Self.tble_employee" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tble_empl__emp_d__1273C1CD" Association="Self.FK__tble_empl__emp_d__1273C1CD">
+            <End Role="depart" EntitySet="depart" />
+            <End Role="tble_employee" EntitySet="tble_employee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="angularModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="depart">
+          <Key>
+            <PropertyRef Name="dep_id" />
+          </Key>
+          <Property Name="dep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dep_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tble_employee" Relationship="Self.FK__tble_empl__emp_d__1273C1CD" FromRole="depart" ToRole="tble_employee" />
+        </EntityType>
+        <EntityType Name="tble_employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="emp_sal" Type="Int32" />
+          <Property Name="emp_dept_fk" Type="Int32" />
+          <NavigationProperty Name="depart" Relationship="Self.FK__tble_empl__emp_d__1273C1CD" FromRole="tble_employee" ToRole="depart" />
+        </EntityType>
+        <Association Name="FK__tble_empl__emp_d__1273C1CD">
+          <End Role="depart" Type="Self.depart" Multiplicity="0..1" />
+          <End Role="tble_employee" Type="Self.tble_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="depart">
+              <PropertyRef Name="dep_id" />
+            </Principal>
+            <Dependent Role="tble_employee">
+              <PropertyRef Name="emp_dept_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="angularEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="departs" EntityType="Self.depart" />
+          <EntitySet Name="tble_employee" EntityType="Self.tble_employee" />
+          <AssociationSet Name="FK__tble_empl__emp_d__1273C1CD" Association="Self.FK__tble_empl__emp_d__1273C1CD">
+            <End Role="depart" EntitySet="departs" />
+            <End Role="tble_employee" EntitySet="tble_employee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="angularModelStoreContainer" CdmEntityContainer="angularEntities">
+          <EntitySetMapping Name="departs">
+            <EntityTypeMapping TypeName="angularModel.depart">
+              <MappingFragment StoreEntitySet="depart">
+                <ScalarProperty Name="dep_id" ColumnName="dep_id" />
+                <ScalarProperty Name="dep_name" ColumnName="dep_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tble_employee">
+            <EntityTypeMapping TypeName="angularModel.tble_employee">
+              <MappingFragment StoreEntitySet="tble_employee">
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="emp_name" ColumnName="emp_name" />
+                <ScalarProperty Name="emp_sal" ColumnName="emp_sal" />
+                <ScalarProperty Name="emp_dept_fk" ColumnName="emp_dept_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
